@@ -1,5 +1,9 @@
+//TODO: use useCallback() hook for the handlepage functions
+
 import { useState } from "react";
 
+import { AnimatePresence } from "motion/react";
+import * as motion from "motion/react-client";
 import {
   Card,
   CardContent,
@@ -48,12 +52,22 @@ export default function UseStatePage() {
 
   return (
     <div>
-      <UseStateCard {...sculptures[index]} />
-      <IndexPagination
-        idx={index}
-        handlePrevPage={handlePrevPage}
-        handleNextPage={handleNextPage}
-      ></IndexPagination>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={index}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5, ease: "easeInOut", type: "tween" }}
+        >
+          <UseStateCard {...sculptures[index]} />
+          <IndexPagination
+            idx={index}
+            handlePrevPage={handlePrevPage}
+            handleNextPage={handleNextPage}
+          ></IndexPagination>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
@@ -83,7 +97,7 @@ interface IndexPaginationProps {
 
 export function IndexPagination(props: IndexPaginationProps) {
   return (
-    <Pagination>
+    <Pagination className="mt-10">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious onClick={props.handlePrevPage} />

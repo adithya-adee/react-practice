@@ -6,6 +6,7 @@ import UseStatePage from "./pages/UseStatePage";
 import { Toaster } from "sonner";
 import UseEffectPage from "./pages/UseEffectPage";
 import Navbar from "./components/Navbar";
+import UseContextPage from "./pages/UseContextPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/use-state" element={<UseStatePage />} />
           <Route path="/use-effect" element={<UseEffectPage />} />
+          <Route path="/use-context" element={<UseContextPage />} />
         </Routes>
       </BrowserRouter>
       <Toaster />

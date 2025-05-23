@@ -20,8 +20,8 @@ export default function UseStatePage() {
 
   return (
     <div>
+      <div>{sculptures[index].name}</div>
       <button onClick={handlePage}>Next Page</button>
-      {sculptures[index].name}
     </div>
   );
 }

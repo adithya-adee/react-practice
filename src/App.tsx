@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 import UseEffectPage from "./pages/UseEffectPage";
 import Navbar from "./components/Navbar";
 import UseContextPage from "./pages/UseContextPage";
+import UseRefPage from "./pages/UseRefPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/use-state" element={<UseStatePage />} />
           <Route path="/use-effect" element={<UseEffectPage />} />
           <Route path="/use-context" element={<UseContextPage />} />
+          <Route path="/use-ref" element={<UseRefPage />} />
         </Routes>
       </BrowserRouter>
       <Toaster />

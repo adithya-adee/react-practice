@@ -12,8 +12,8 @@ import UseRefPage from "./pages/UseRefPage";
 function App() {
   return (
     <>
-      <Navbar />
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/use-state" element={<UseStatePage />} />

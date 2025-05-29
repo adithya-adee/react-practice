@@ -12,7 +12,7 @@ export default function UseRefPage() {
     }
   };
 
-  const handleInput = (e) => {
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
@@ -27,7 +27,7 @@ export default function UseRefPage() {
       initial={{ x: 100, y: 100 }}
       animate={{ x: 0, y: 0 }}
       transition={{
-        duration: 3,
+        duration: 1.5,
         type: "spring",
       }}
       className="shadow-lg shadow-white/40 drop-shadow-2xl h-[20vh] w-[50vh]"

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
 
@@ -22,6 +22,20 @@ const componentElements = [
 ];
 
 export default function Tree() {
+  // Add state to control when beams should render
+  const [showBeams, setShowBeams] = useState(false);
+
+  // Initialize ref arrays with the correct length
+  const coreElementRefs = useRef<(HTMLAnchorElement | null)[]>(
+    Array(coreElements.length).fill(null)
+  );
+  const efficientElementRefs = useRef<(HTMLAnchorElement | null)[]>(
+    Array(efficientElements.length).fill(null)
+  );
+  const componentElementRefs = useRef<(HTMLAnchorElement | null)[]>(
+    Array(componentElements.length).fill(null)
+  );
+
   // Container ref for the entire flowchart
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -34,10 +48,15 @@ export default function Tree() {
   const coreRef = useRef<HTMLDivElement>(null);
   const efficientRef = useRef<HTMLDivElement>(null);
 
-  // Element refs (using arrays to hold multiple refs)
-  const coreElementRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const efficientElementRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const componentElementRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  useEffect(() => {
+    containerRef.current?.focus();
+
+    const timer = setTimeout(() => {
+      setShowBeams(true);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-centertext-white p-4 min-h-[72vh] overflow-x-auto border border-purple-800 rounded-2xl">
@@ -75,7 +94,7 @@ export default function Tree() {
               <div className="flex flex-col items-center">
                 <div
                   ref={coreRef}
-                  className="bg-amber-700 text-white w-14 h-14 flex items-center justify-center rounded-2xl shadow-lg shadow-amber-900/50 z-10"
+                  className="bg-amber-700 text-white w-14 h-14 flex items-center justify-center rounded-2xl shadow-lg shadow-amber-900/50 z-10 mt-2"
                 >
                   <span className="text-xs font-bold">Core</span>
                 </div>
@@ -118,7 +137,7 @@ export default function Tree() {
 
                 {/* Efficient Hook Items */}
                 <div className="flex flex-col gap-3">
-                  <div className="flex flex-wrap justify-center gap-3 max-w-[300px]">
+                  <div className="flex flex-wrap justify-center gap-3 max-w-[300px] mt-2">
                     {efficientElements.map((item, index) => (
                       <Link
                         key={item.id}
@@ -173,111 +192,115 @@ export default function Tree() {
 
         {/* Animated Beams */}
         {/* React to Hooks */}
-        <AnimatedBeam
-          containerRef={containerRef}
-          fromRef={reactRef}
-          toRef={hooksRef}
-          pathColor="#475569"
-          pathWidth={3} // Increased from 1.5 to 3
-          pathOpacity={0.5} // Increased from 0.3 to 0.5
-          curvature={20}
-          gradientStartColor="#4338ca"
-          gradientStopColor="#065f46"
-          delay={0.2}
-        />
+        {showBeams && (
+          <>
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={reactRef}
+              toRef={hooksRef}
+              pathColor="#475569"
+              pathWidth={3} // Increased from 1.5 to 3
+              pathOpacity={0.5} // Increased from 0.3 to 0.5
+              curvature={20}
+              gradientStartColor="#4338ca"
+              gradientStopColor="#065f46"
+              delay={0.2}
+            />
 
-        {/* React to Components */}
-        <AnimatedBeam
-          containerRef={containerRef}
-          fromRef={reactRef}
-          toRef={componentsRef}
-          pathColor="#475569"
-          pathWidth={3} // Increased from 1.5 to 3
-          pathOpacity={0.5} // Increased from 0.3 to 0.5
-          curvature={20}
-          gradientStartColor="#4338ca"
-          gradientStopColor="#9f1239"
-          delay={0.4}
-        />
+            {/* React to Components */}
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={reactRef}
+              toRef={componentsRef}
+              pathColor="#475569"
+              pathWidth={3} // Increased from 1.5 to 3
+              pathOpacity={0.5} // Increased from 0.3 to 0.5
+              curvature={20}
+              gradientStartColor="#4338ca"
+              gradientStopColor="#9f1239"
+              delay={0.4}
+            />
 
-        {/* Hooks to Core */}
-        <AnimatedBeam
-          containerRef={containerRef}
-          fromRef={hooksRef}
-          toRef={coreRef}
-          pathColor="#475569"
-          pathWidth={3} // Increased from 1.5 to 3
-          pathOpacity={0.5} // Increased from 0.3 to 0.5
-          curvature={10}
-          gradientStartColor="#065f46"
-          gradientStopColor="#b45309"
-          delay={0.6}
-        />
+            {/* Hooks to Core */}
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={hooksRef}
+              toRef={coreRef}
+              pathColor="#475569"
+              pathWidth={3} // Increased from 1.5 to 3
+              pathOpacity={0.5} // Increased from 0.3 to 0.5
+              curvature={10}
+              gradientStartColor="#065f46"
+              gradientStopColor="#b45309"
+              delay={0.6}
+            />
 
-        {/* Hooks to Efficient */}
-        <AnimatedBeam
-          containerRef={containerRef}
-          fromRef={hooksRef}
-          toRef={efficientRef}
-          pathColor="#475569"
-          pathWidth={3} // Increased from 1.5 to 3
-          pathOpacity={0.5} // Increased from 0.3 to 0.5
-          curvature={10}
-          gradientStartColor="#065f46"
-          gradientStopColor="#6d28d9"
-          delay={0.8}
-        />
+            {/* Hooks to Efficient */}
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={hooksRef}
+              toRef={efficientRef}
+              pathColor="#475569"
+              pathWidth={3} // Increased from 1.5 to 3
+              pathOpacity={0.5} // Increased from 0.3 to 0.5
+              curvature={10}
+              gradientStartColor="#065f46"
+              gradientStopColor="#6d28d9"
+              delay={0.8}
+            />
 
-        {/* Connect Core to its elements */}
-        {coreElements.map((_, index) => (
-          <AnimatedBeam
-            key={`core-beam-${index}`}
-            containerRef={containerRef}
-            fromRef={coreRef}
-            toRef={{ current: coreElementRefs.current[index] }}
-            pathColor="#475569"
-            pathWidth={2} // Increased from 1 to 2
-            pathOpacity={0.4} // Increased from 0.2 to 0.4
-            curvature={5}
-            gradientStartColor="#b45309"
-            gradientStopColor="#0e7490"
-            delay={1 + index * 0.1}
-          />
-        ))}
+            {/* Connect Core to its elements */}
+            {coreElements.map((_, index) => (
+              <AnimatedBeam
+                key={`core-beam-${index}`}
+                containerRef={containerRef}
+                fromRef={coreRef}
+                toRef={{ current: coreElementRefs.current[index] }}
+                pathColor="#475569"
+                pathWidth={2} // Increased from 1 to 2
+                pathOpacity={0.4} // Increased from 0.2 to 0.4
+                curvature={5}
+                gradientStartColor="#b45309"
+                gradientStopColor="#0e7490"
+                delay={1 + index * 0.1}
+              />
+            ))}
 
-        {/* Connect Efficient to its elements */}
-        {efficientElements.map((_, index) => (
-          <AnimatedBeam
-            key={`efficient-beam-${index}`}
-            containerRef={containerRef}
-            fromRef={efficientRef}
-            toRef={{ current: efficientElementRefs.current[index] }}
-            pathColor="#475569"
-            pathWidth={2} // Increased from 1 to 2
-            pathOpacity={0.4} // Increased from 0.2 to 0.4
-            curvature={5}
-            gradientStartColor="#6d28d9"
-            gradientStopColor="#7e22ce"
-            delay={1.5 + index * 0.1}
-          />
-        ))}
+            {/* Connect Efficient to its elements */}
+            {efficientElements.map((_, index) => (
+              <AnimatedBeam
+                key={`efficient-beam-${index}`}
+                containerRef={containerRef}
+                fromRef={efficientRef}
+                toRef={{ current: efficientElementRefs.current[index] }}
+                pathColor="#475569"
+                pathWidth={2} // Increased from 1 to 2
+                pathOpacity={0.4} // Increased from 0.2 to 0.4
+                curvature={5}
+                gradientStartColor="#6d28d9"
+                gradientStopColor="#7e22ce"
+                delay={1.5 + index * 0.1}
+              />
+            ))}
 
-        {/* Connect Components to its elements */}
-        {componentElements.map((_, index) => (
-          <AnimatedBeam
-            key={`component-beam-${index}`}
-            containerRef={containerRef}
-            fromRef={componentsRef}
-            toRef={{ current: componentElementRefs.current[index] }}
-            pathColor="#475569"
-            pathWidth={2} // Increased from 1 to 2
-            pathOpacity={0.4} // Increased from 0.2 to 0.4
-            curvature={5}
-            gradientStartColor="#9f1239"
-            gradientStopColor="#be185d"
-            delay={2 + index * 0.1}
-          />
-        ))}
+            {/* Connect Components to its elements */}
+            {componentElements.map((_, index) => (
+              <AnimatedBeam
+                key={`component-beam-${index}`}
+                containerRef={containerRef}
+                fromRef={componentsRef}
+                toRef={{ current: componentElementRefs.current[index] }}
+                pathColor="#475569"
+                pathWidth={2} // Increased from 1 to 2
+                pathOpacity={0.4} // Increased from 0.2 to 0.4
+                curvature={5}
+                gradientStartColor="#9f1239"
+                gradientStopColor="#be185d"
+                delay={2 + index * 0.1}
+              />
+            ))}
+          </>
+        )}
       </div>
 
       <p className="flex flex-col text-gray-400 text-xl mt-12">

@@ -61,7 +61,7 @@ export default function Tree() {
           <div className="flex flex-col items-center mb-16">
             <div
               ref={hooksRef}
-              className="bg-emerald-800 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg shadow-emerald-900/50 z-10"
+              className="bg-emerald-800 text-white w-16 h-16 flex items-center justify-center rounded-2xl shadow-lg shadow-emerald-900/50 z-10"
             >
               <span className="text-sm font-bold">Hooks</span>
             </div>
@@ -75,7 +75,7 @@ export default function Tree() {
               <div className="flex flex-col items-center">
                 <div
                   ref={coreRef}
-                  className="bg-amber-700 text-white w-14 h-14 flex items-center justify-center rounded-full shadow-lg shadow-amber-900/50 z-10"
+                  className="bg-amber-700 text-white w-14 h-14 flex items-center justify-center rounded-2xl shadow-lg shadow-amber-900/50 z-10"
                 >
                   <span className="text-xs font-bold">Core</span>
                 </div>
@@ -91,7 +91,7 @@ export default function Tree() {
                         ref={(el) => {
                           coreElementRefs.current[index] = el;
                         }}
-                        className={`bg-cyan-800 text-white w-16 h-16 flex items-center justify-center rounded-md hover:bg-cyan-700 transition shadow-md hover:shadow-lg shadow-cyan-900/50 z-10 ${
+                        className={`bg-cyan-800 text-white w-16 h-16 flex items-center justify-center rounded-xl hover:bg-cyan-700 transition shadow-md hover:shadow-md hover:shadow-white shadow-cyan-900/50 z-10 ${
                           index % 2 === 1 ? "mx-2" : ""
                         }`}
                       >
@@ -108,11 +108,11 @@ export default function Tree() {
               <div className="flex flex-col items-center">
                 <div
                   ref={efficientRef}
-                  className="bg-violet-800 text-white w-14 h-14 flex items-center justify-center rounded-full shadow-lg shadow-violet-900/50 z-10"
+                  className="bg-violet-800 text-white w-18 h-14 flex items-center justify-center rounded-2xl shadow-lg shadow-violet-900/50 z-10"
                 >
                   <span className="text-xs font-bold">Efficiency</span>
                 </div>
-                <div className="text-xs text-gray-400 mt-2 mb-6">
+                <div className="text-xs text-gray-400 mt-2 mb-8">
                   Performance
                 </div>
 
@@ -126,7 +126,7 @@ export default function Tree() {
                         ref={(el) => {
                           efficientElementRefs.current[index] = el;
                         }}
-                        className={`bg-purple-800 text-white w-16 h-16 flex items-center justify-center rounded-md hover:bg-purple-700 transition shadow-md hover:shadow-lg shadow-purple-900/50 z-10 ${
+                        className={`bg-purple-800 text-white w-16 h-16 flex items-center justify-center rounded-xl hover:bg-purple-700 transition shadow-md hover:shadow-md hover:shadow-white shadow-purple-900/50 z-10 ${
                           index % 2 === 1 ? "mx-2" : ""
                         }`}
                       >
@@ -145,7 +145,7 @@ export default function Tree() {
           <div className="flex flex-col items-center">
             <div
               ref={componentsRef}
-              className="bg-rose-800 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg shadow-rose-900/50 z-10"
+              className="bg-rose-800 text-white w-20 h-16 flex items-center justify-center rounded-2xl shadow-lg shadow-rose-900/50 z-10"
             >
               <span className="text-xs font-bold">Components</span>
             </div>
@@ -160,9 +160,11 @@ export default function Tree() {
                   ref={(el) => {
                     componentElementRefs.current[index] = el;
                   }}
-                  className="bg-pink-800 text-white w-16 h-16 flex items-center justify-center rounded-full hover:bg-pink-700 transition shadow-md hover:shadow-lg shadow-pink-900/50 z-10"
+                  className="bg-pink-800 text-white w-16 h-16 flex items-center justify-center rounded-md hover:bg-pink-700 transition shadow-md hover:shadow-md hover:shadow-white shadow-pink-900/50 z-10"
                 >
-                  <span className="text-xs font-bold">{item.label}</span>
+                  <span className="text-xs font-bold text-white">
+                    {item.label}
+                  </span>
                 </Link>
               ))}
             </div>
@@ -176,8 +178,8 @@ export default function Tree() {
           fromRef={reactRef}
           toRef={hooksRef}
           pathColor="#475569"
-          pathWidth={1.5}
-          pathOpacity={0.3}
+          pathWidth={3} // Increased from 1.5 to 3
+          pathOpacity={0.5} // Increased from 0.3 to 0.5
           curvature={20}
           gradientStartColor="#4338ca"
           gradientStopColor="#065f46"
@@ -190,8 +192,8 @@ export default function Tree() {
           fromRef={reactRef}
           toRef={componentsRef}
           pathColor="#475569"
-          pathWidth={1.5}
-          pathOpacity={0.3}
+          pathWidth={3} // Increased from 1.5 to 3
+          pathOpacity={0.5} // Increased from 0.3 to 0.5
           curvature={20}
           gradientStartColor="#4338ca"
           gradientStopColor="#9f1239"
@@ -204,8 +206,8 @@ export default function Tree() {
           fromRef={hooksRef}
           toRef={coreRef}
           pathColor="#475569"
-          pathWidth={1.5}
-          pathOpacity={0.3}
+          pathWidth={3} // Increased from 1.5 to 3
+          pathOpacity={0.5} // Increased from 0.3 to 0.5
           curvature={10}
           gradientStartColor="#065f46"
           gradientStopColor="#b45309"
@@ -218,8 +220,8 @@ export default function Tree() {
           fromRef={hooksRef}
           toRef={efficientRef}
           pathColor="#475569"
-          pathWidth={1.5}
-          pathOpacity={0.3}
+          pathWidth={3} // Increased from 1.5 to 3
+          pathOpacity={0.5} // Increased from 0.3 to 0.5
           curvature={10}
           gradientStartColor="#065f46"
           gradientStopColor="#6d28d9"
@@ -234,8 +236,8 @@ export default function Tree() {
             fromRef={coreRef}
             toRef={{ current: coreElementRefs.current[index] }}
             pathColor="#475569"
-            pathWidth={1}
-            pathOpacity={0.2}
+            pathWidth={2} // Increased from 1 to 2
+            pathOpacity={0.4} // Increased from 0.2 to 0.4
             curvature={5}
             gradientStartColor="#b45309"
             gradientStopColor="#0e7490"
@@ -251,8 +253,8 @@ export default function Tree() {
             fromRef={efficientRef}
             toRef={{ current: efficientElementRefs.current[index] }}
             pathColor="#475569"
-            pathWidth={1}
-            pathOpacity={0.2}
+            pathWidth={2} // Increased from 1 to 2
+            pathOpacity={0.4} // Increased from 0.2 to 0.4
             curvature={5}
             gradientStartColor="#6d28d9"
             gradientStopColor="#7e22ce"
@@ -268,8 +270,8 @@ export default function Tree() {
             fromRef={componentsRef}
             toRef={{ current: componentElementRefs.current[index] }}
             pathColor="#475569"
-            pathWidth={1}
-            pathOpacity={0.2}
+            pathWidth={2} // Increased from 1 to 2
+            pathOpacity={0.4} // Increased from 0.2 to 0.4
             curvature={5}
             gradientStartColor="#9f1239"
             gradientStopColor="#be185d"
